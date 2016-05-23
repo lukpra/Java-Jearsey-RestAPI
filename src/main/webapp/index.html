@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script
+            src="https://code.jquery.com/jquery-2.2.3.min.js"
+            integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+          crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+          crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+    <!-- Data tables CSS -->
+    <link rel="stylesheet"
+          href=https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css>
+
+    <!-- Data tables JS -->
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="page-header">
+            <h1>Rest Table</h1>
+        </div>
+        <p class="lead">Dynamic table that does not require page refreshing to work.</p>
+        <button type="button" id="btn_fetch" class="btn btn-success">Fetch data</button>
+        <br>
+        <div class = "table_div">
+            <table id="rest_table" class="display">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Event Name</th>
+                    <th>Event Date</th>
+                    <th>Event Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class = "add_div">
+           <p class = "lead"> Add event: </p>
+            <div class="input-group">
+                <input type="text" id="eventName" class="form-control" placeholder="Event Name" aria-describedby="basic-addon1">
+
+                <input type="text" id="eventDate" class="form-control" placeholder="Event Date" aria-describedby="basic-addon1">
+
+                <input type="text" id="eventDesc" class="form-control" placeholder="Event Description" aria-describedby="basic-addon1">
+            </div>
+            <br>
+            <button type="button" id="btn_add" class="btn btn-danger">Add new event</button>
+            <br>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class = "del_div">
+            <p class = "lead"> Remove event: </p>
+            <div class="input-group">
+                <input type="text" id="eventId" class="form-control" placeholder="Event Id" aria-describedby="basic-addon1">
+            </div>
+            <br>
+            <button type="button" id="btn_del" class="btn btn-danger">Add new event</button>
+            <br>
+        </div>
+
+    <br>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Task created for Cognifide </p>
+        </div>
+    </footer>
+    <script>
+        $(document).ready( function () {
+            $('#rest_table').DataTable();
+        } );
+
+        $('#rest_table').DataTable( {
+            ajax: {
+                url: 'http://localhost:8080/api/events',
+                dataSrc: ''
+            },
+            columns: [ {data : 'id'},
+                       {data : 'eventName'},
+                       {data : 'eventDate'},
+                       {data : 'eventDesc'} ]
+        } );
+
+        $( "#btn_fetch" ).click(function() {
+
+            fetchdata();
+
+        });
+
+        $( "#btn_add" ).click(function() {
+
+            var eventName = $( "#eventName" ).val()
+            var eventDate = $( "#eventDate" ).val()
+            var eventDesc = $( "#eventDesc" ).val()
+
+            $.ajax({
+              type: "POST",
+              url: "http://localhost:8080/api/events",
+              data: JSON.stringify({ "eventName": eventName, "eventDate" : eventDate, "eventDesc" : eventDesc }),
+              contentType : 'application/json',
+              success:function(data){
+                fetchdata();
+                console.log("Post add event OK");
+                },
+              error:function(data){
+                console.log("Post add event ERR");
+               }
+            });
+
+        });
+
+        $( "#btn_del" ).click(function() {
+
+            var eventId = $( "#eventId" ).val()
+
+
+            $.ajax({
+              type: "DELETE",
+              url: "http://localhost:8080/api/events/"+eventId,
+              contentType : 'application/json',
+              success:function(data){
+                fetchdata();
+                console.log("Delete deleted event OK");
+                },
+              error:function(data){
+                console.log("Delete not deleted event ERR");
+               }
+            });
+
+        });
+
+
+        function fetchdata(){ $('#rest_table').DataTable().ajax.reload(); console.log("Updating table data.");}
+    </script>
+</body>
+</html>
