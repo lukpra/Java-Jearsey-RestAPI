@@ -13,3 +13,7 @@ hs_err_pi*d
 
 # editor files
 .idea
+target/
+.settings/
+.classpath
+.project
