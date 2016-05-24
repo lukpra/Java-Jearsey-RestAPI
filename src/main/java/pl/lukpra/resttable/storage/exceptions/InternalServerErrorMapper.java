@@ -16,6 +16,6 @@ public class InternalServerErrorMapper implements ExceptionMapper<Exception> {
     }
 
     private ErrorMessage createEntity(Exception exception) {
-        return new ErrorMessage(exception.getMessage(), "INTERNAL SRV ERROR, create entity");
+        return new ErrorMessage(exception.getMessage(), "INTERNAL SRV ERROR while creating entity");
     }
 }

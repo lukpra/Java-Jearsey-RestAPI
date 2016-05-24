@@ -9,7 +9,6 @@ import javax.ws.rs.core.Response;
 
 public class UserException extends WebApplicationException {
     public UserException(String message, String userMessage, String info) {
-        //super(Responses.notFound().type(MediaType.APPLICATION_JSON).entity(message).build());
         super(Response.status(Response.Status.NOT_FOUND).
                 entity(createExceptionMessage(message, userMessage, info))
                 .type(MediaType.APPLICATION_JSON)

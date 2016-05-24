@@ -15,10 +15,6 @@ public class ExceptionMessage {
         return message;
     }
 
-    public String getUserMessage() {
-        return userMessage;
-    }
-
     public String getInfo() {
         return info;
     }

@@ -14,7 +14,4 @@ public class ErrorMessage {
         return message;
     }
 
-    public String getUserMessage() {
-        return userMessage;
-    }
 }

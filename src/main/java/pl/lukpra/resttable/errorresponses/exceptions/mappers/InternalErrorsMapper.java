@@ -30,14 +30,14 @@ public class InternalErrorsMapper implements ExceptionMapper<Throwable> {
     }
 
     private ExceptionMessage createExceptionMessage(Throwable throwable) {
-        return new ExceptionMessage("Internal server error. " + throwable.getMessage(),
-                "Wewnętrzny błąd serwera. Spróbuj za kilka minut.",
-                "http://aplikacja.pl/erorrs/internal");
+        return new ExceptionMessage("Internal server error.  " + throwable.getMessage(),
+                "Try again later.",
+                "http://app_link/erorrs/internal");
     }
 
     private ExceptionMessage createExceptionMessage(WebApplicationException exc) {
         return new ExceptionMessage(exc.getMessage(),
-                "Wewnętrzny błąd serwera. Spróbuj za kilka minut.",
-                "http://aplikacja.pl/erorrs/internal");
+                "Internal server error, try again later",
+                "http://app_link/erorrs/internal");
     }
 }

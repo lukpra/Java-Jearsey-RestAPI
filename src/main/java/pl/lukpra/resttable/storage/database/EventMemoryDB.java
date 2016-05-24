@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class EventMemoryDB implements EventDatabase {
     private static Map<String, Event> events = new HashMap<String, Event>() {{
-        put("0", new Event("0", "Bardzo wazny meeting w kantynie", "Kazdego dnia", "Obiad integracyjny"));
-        put("1", new Event("1", "Prezentacja dokumentacji u klienta", "2016-04-24", "Zabrac projektor"));
-        put("2", new Event("2", "Rozmowa kwalifikacyjna", "Juz niedlugo", "Dobrze rokujacy deweloper"));
-        put("3", new Event("3", "Spotkanie z klientem 2", "2016-04-23", "jak w nazwie."));
+        put("0", new Event("0", "Metting number One - Company Dinner", "Every Day", "Integration"));
+        put("1", new Event("1", "Meeting number Two", "Date 1", "Some description 1"));
+        put("2", new Event("2", "Meeting number Three", "Soon", "Some description 2"));
+        put("3", new Event("3", "Meeting number Four", "2016-04-23", "Some description 3"));
     }};
 
-    private Integer iter=4;
+    private Integer iter=4; // for hardcoded number of events
 
     private void incrementIter (){
         iter = iter + 1;

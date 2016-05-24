@@ -31,7 +31,7 @@ public class EventEntity {
     private String eventName;
 
     @Column(name = "dateOf")
-    private String eventDate;
+    private String eventDate; // pure string, no date check
 
     @Column(name = "desc")
     private String eventDesc;
